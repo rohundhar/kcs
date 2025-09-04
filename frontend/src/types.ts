@@ -20,6 +20,7 @@ export interface Note {
   _id: string;
   title: string;
   body: string;
+  reference: string;
   category: "Fleeting" | "Literature" | "Deduction";
   isPermanent: boolean;
   status: "staged" | "committed";

@@ -27,6 +27,7 @@ def create_note():
     note = {
         "title": data.get("title", "Untitled Note"),
         "body": data.get("body", ""),
+        "reference": data.get("reference", ""),
         "category": data.get("category", "Fleeting"),
         "isPermanent": False,
         "status": "staged", # All new notes are staged
@@ -98,7 +99,7 @@ def update_note(note_id):
     }
     
     # Allow updating specific fields
-    allowed_fields = ["title", "body", "category", "isPermanent", "source", "links"]
+    allowed_fields = ["title", "body", "category", "isPermanent", "source", "links", "reference"]
     for field in allowed_fields:
         if field in data:
             update_fields[field] = data[field]

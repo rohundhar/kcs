@@ -12,6 +12,7 @@ const StagingArea: React.FC<StagingAreaProps> = ({ onCommit }) => {
   const [stagedNotes, setStagedNotes] = useState<Note[]>([]);
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+  const [reference, setReference] = useState('');
   const [category, setCategory] = useState<'Fleeting' | 'Literature' | 'Deduction'>('Fleeting');
   
   const [selectedStagedNote, setSelectedStagedNote] = useState<Note | null>(null);
@@ -37,9 +38,10 @@ const StagingArea: React.FC<StagingAreaProps> = ({ onCommit }) => {
       return;
     }
     try {
-      await createNote({ title, body, category });
+      await createNote({ title, body, category, reference});
       setTitle('');
       setBody('');
+      setReference('');
       setCategory('Fleeting');
       fetchStagedNotes();
     } catch (error) {
@@ -84,6 +86,12 @@ const StagingArea: React.FC<StagingAreaProps> = ({ onCommit }) => {
             rows={4}
             onChange={(e) => setBody(e.target.value)}
           ></textarea>
+          {category === 'Literature' ? <input 
+            type="text"
+            placeholder='Reference Details'
+            value={reference}
+            onChange={(e) => setReference(e.target.value)}
+          /> : <></> }
           <select value={category} onChange={(e) => setCategory(e.target.value as any)}>
             <option value="Fleeting">Fleeting</option>
             <option value="Literature">Literature</option>

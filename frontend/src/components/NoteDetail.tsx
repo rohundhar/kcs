@@ -102,7 +102,11 @@ const NoteDetail: React.FC<NoteDetailProps> = ({ noteId }) => {
           </ul>
         ) : <p>No incoming links.</p>}
       </div>
-    </div>
+      {note.reference && <div className="links-section">
+          <h3>Reference Details</h3>
+          {note.reference}
+        </div>}
+      </div>
   );
 };
 
