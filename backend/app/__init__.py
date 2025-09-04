@@ -3,6 +3,7 @@ from pymongo import MongoClient
 from flask_cors import CORS
 from config import Config
 import certifi
+import os
 
 db = None
 
@@ -12,7 +13,11 @@ def create_app():
     app.config.from_object(Config)
     
     # Enable CORS for frontend requests
-    CORS(app)
+    frontend_url = os.environ.get('FRONTEND_URL')
+    if frontend_url:
+        CORS(app, origins=[frontend_url])
+    else:
+        CORS(app) # Fallback for local development
 
     try:
         client = MongoClient(app.config['MONGO_URI'], tlsCAFile=certifi.where())
